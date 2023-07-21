@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component  } from 'react';
 import logo from './images/autorem logo.png'
 
 import './css/signupin.css';
@@ -14,10 +14,30 @@ class Login extends Component{
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleSubmit(e){
+  
+  handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
+    const { email, password } = this.state;
+    console.log({email, password});
+    fetch("http://localhost:8000/login", {
+        method: "POST",
+        crossDomain: true,
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Origin":"*"
+        },
+        body: JSON.stringify({
+            email,
+            password,
+        }),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data, "userLogin");
+    });
   }
+
   render(){
     return(
         <section className="h-100 gradient-form" style={{ backgroundColor: "#eee" }}>
@@ -28,7 +48,7 @@ class Login extends Component{
                 <div className="row g-0">
                   <div className="col-lg-6">
                     <div className="card-body p-md-5 mx-md-4">
-                      <div className="text-center" style={{ display: "flex", justifyContent: "center", alignItems: "center"  }}>
+                      <div className="text-center d-flex align-items-center justify-content-center" >
                         <img
                           src={logo}
                           style={{ width: "100px" }}
@@ -68,8 +88,9 @@ class Login extends Component{
                         </div>
                         <div className="text-center pt-1 mb-5 pb-1">
                           <button
-                            className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
+                            className="btn btn-primary btn-block gradient-custom-2 mb-3 pt-2 pb-2"
                             type="submit"
+                            style={{fontSize:"14px"}}
                           >
                             Log in
                           </button>
@@ -79,7 +100,7 @@ class Login extends Component{
                         </div>
                         <div className="d-flex align-items-center justify-content-center pb-4">
                           <p className="mb-0 me-2">Don't have an account?</p>
-                          <Link to='/signup' className="btn btn-outline-danger">
+                          <Link to='/signup' className="btn btn-outline-primary" style={{fontSize:"14px"}}>
                             Create new
                           </Link>
                         </div>
