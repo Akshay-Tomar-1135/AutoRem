@@ -101,7 +101,8 @@
 } */
 
 .open-close {
-    width: 0px; 
+    width: 0px;
+    opacity: 1; 
     transition: width 0.4s ease-in-out;
   }
   
@@ -110,6 +111,7 @@
   }
   
   .closed {
+    opacity: 0;
     width: 0;
   }
   
